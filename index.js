@@ -8,11 +8,11 @@ const app = express();
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send(`Hello World ${process.env.TEST_KEY} / !`);
+  res.send(`Action: Hello World ${process.env.TEST_KEY} / !`);
 });
 
 app.get("/hello", (req, res) => {
-  res.send("Hello World /HELLO !");
+  res.send("Action: Hello World /HELLO !");
 });
 
 // app.listen(3000, () => {
