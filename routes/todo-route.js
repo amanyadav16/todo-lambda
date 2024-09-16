@@ -1,5 +1,5 @@
 import express from "express";
-
+import { idValidator } from "../middleware/id-validator.js";
 import {
   addTodo,
   getTodos,
@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.get("/", getTodos);
 router.post("/", addTodo);
-router.put("/:id", updateTodo);
-router.delete("/:id", deleteTodo);
+router.put("/:id", idValidator, updateTodo);
+router.delete("/:id", idValidator, deleteTodo);
 
 export default router;
