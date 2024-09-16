@@ -1,35 +1,47 @@
 const getTodos = (req, res, next) => {
-  try {
-    res.send({ message: "get all todos" });
-  } catch (error) {
-    next(error);
-  }
+  fetch(`${process.env.AZURE_FUNCTION_BASE_URL}/getTodos`, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .then((response) => res.status(200).send(response))
+    .catch((error) => next(error));
 };
+
 const addTodo = (req, res, next) => {
-  console.log(req.body);
-  try {
-    res.send({ message: "add a todo" });
-  } catch (error) {
-    next(error);
-  }
+  fetch(`${process.env.AZURE_FUNCTION_BASE_URL}/addTodo`, {
+    method: "POST",
+    body: JSON.stringify({
+      ...req.body,
+    }),
+  })
+    .then((response) => response.json())
+    .then((response) => res.status(201).send(response))
+    .catch((error) => next(error));
 };
+
 const updateTodo = (req, res, next) => {
-  try {
-    res.send({
-      message: `update a todo with id ${req.params["id"]}`,
-    });
-  } catch (error) {
-    next(error);
-  }
+  fetch(`${process.env.AZURE_FUNCTION_BASE_URL}/updateTodo`, {
+    method: "PUT",
+    body: JSON.stringify({
+      id: req.params.id,
+      ...req.body,
+    }),
+  })
+    .then((response) => response.json())
+    .then((response) => res.status(200).send(response))
+    .catch((error) => next(error));
 };
+
 const deleteTodo = (req, res, next) => {
-  try {
-    res.send({
-      message: `delete a todo with id ${req.params.id}`,
-    });
-  } catch (err) {
-    next(err);
-  }
+  fetch(
+    `${process.env.AZURE_FUNCTION_BASE_URL}/deleteTodo?id=${req.params.id}`,
+    {
+      method: "DELETE",
+    }
+  )
+    .then((response) => response.json())
+    .then((response) => res.status(200).send(response))
+    .catch((error) => next(error));
 };
 
 export { getTodos, addTodo, updateTodo, deleteTodo };
