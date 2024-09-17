@@ -32,8 +32,8 @@ app.use("/todo", authHandler, router);
 //error handling middleware
 app.use(customErrorHandler);
 
-app.listen(3000, () => {
-  console.log("App is running on port 3000");
-});
+// app.listen(3000, () => {
+//   console.log("App is running on port 3000");
+// });
 
-//export const handler = serverless(app);
+export const handler = serverless(app);
